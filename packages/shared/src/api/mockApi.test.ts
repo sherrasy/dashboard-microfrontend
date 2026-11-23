@@ -4,6 +4,7 @@ import { MockApi, mockApi } from './mockApi';
 function createFastApi(): MockApi {
   const api = new MockApi();
   api.setDelay(0);
+  api.setJitter(0);
   return api;
 }
 
