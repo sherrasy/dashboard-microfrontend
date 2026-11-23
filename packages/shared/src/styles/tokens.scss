@@ -1,0 +1,37 @@
+// Дизайн-токены мини-маркетплейса (тёплая кофейная палитра).
+// Объявляются на уровне хоста (host-shell). Remote-приложения НЕ переопределяют
+// эти общие имена; локальные переменные remote — только с префиксом
+// --catalog- / --cart- (см. AGENTS.md).
+
+:root {
+  // Базовая палитра
+  --color-cream: #fff8ea;
+  --color-mauve: #9e7676;
+  --color-cocoa: #815b5b;
+  --color-espresso: #594545;
+
+  // Поверхности
+  --surface-page: var(--color-cream);
+  --surface-card: #fffdf6;
+  --surface-sunken: #f3e9d8;
+  --surface-overlay: rgb(89 69 69 / 40%);
+
+  // Текст
+  --text-primary: var(--color-espresso);
+  --text-secondary: var(--color-cocoa);
+  --text-muted: var(--color-mauve);
+  --text-inverse: var(--color-cream);
+
+  // Интерактивные состояния (hover / active)
+  --action-hover: #6e4f4f;
+  --action-active: #594545;
+  --action-disabled: #c9b8a3;
+
+  // Семантические цвета (тёплые приглушённые)
+  --color-success: #7c8a6e;
+  --color-success-bg: #eef0e4;
+  --color-warning: #c39a4b;
+  --color-warning-bg: #f8eeda;
+  --color-danger: #a65b52;
+  --color-danger-bg: #f6e5e0;
+}
