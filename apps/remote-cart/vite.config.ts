@@ -13,6 +13,8 @@ const shared = {
 };
 
 export default defineConfig({
+  // Базовый путь для деплоя (GH Pages: /<repo>/cart). Задаётся через BASE_PATH при сборке.
+  base: process.env.BASE_PATH ?? '/',
   plugins: [
     react(),
     federation({

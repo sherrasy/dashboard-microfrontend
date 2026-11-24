@@ -35,6 +35,8 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', 'VITE_');
 
   return {
+    // Базовый путь для деплоя (GH Pages: /<repo>/host). Задаётся через BASE_PATH при сборке.
+    base: process.env.BASE_PATH ?? '/',
     plugins: [
       react(),
       federation({

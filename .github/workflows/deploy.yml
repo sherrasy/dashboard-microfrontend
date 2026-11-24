@@ -1,0 +1,60 @@
+# Деплой микрофронтендов на GitHub Pages.
+#
+# Архитектура на Pages: три приложения в одном сайте репозитория —
+#   /<repo>/host     — хост (entry point, открывать его)
+#   /<repo>/catalog  — remote-catalog (remoteEntry.js)
+#   /<repo>/cart     — remote-cart (remoteEntry.js)
+# Сборку выполняет scripts/build-pages.mjs: собирает каждое приложение
+# со своим base и кладёт dist'ы в pages/, после чего artifact публикуется
+# через официальный механизм Pages (source: GitHub Actions).
+#
+# Требование: в настройках репозитория (Settings → Pages) Source должен
+# быть переключён на «GitHub Actions».
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # base = /<имя-репозитория>: GH Pages обслуживает project pages
+      # по пути https://<user>.github.io/<repo>/.
+      - name: Build host + remotes
+        run: node scripts/build-pages.mjs --base=/${{ github.event.repository.name }}
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: pages
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
