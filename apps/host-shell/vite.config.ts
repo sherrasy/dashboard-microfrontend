@@ -14,6 +14,9 @@ const shared = {
 
 // URL ремоутов — только через env с валидацией на старте (AGENTS.md).
 // Без переменной или при невалидном URL сборка падает сразу (fail-fast).
+// Допустимы абсолютные URL (http(s)://...) и origin-относительные пути
+// ("/<repo>/catalog/...") — так хост деплоится на GH Pages без хардкода
+// домена (см. scripts/build-pages.mjs).
 function requireRemoteUrl(env: Record<string, string>, name: string): string {
   const value = env[name];
   if (!value) {
@@ -21,6 +24,9 @@ function requireRemoteUrl(env: Record<string, string>, name: string): string {
       `[host-shell] Не задана переменная окружения ${name} (URL remote для Module Federation). ` +
         `Заполните её в apps/host-shell/.env.development или .env.production.`,
     );
+  }
+  if (value.startsWith('/')) {
+    return value;
   }
   try {
     return new URL(value).toString();

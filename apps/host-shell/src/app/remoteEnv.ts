@@ -9,6 +9,10 @@ function requireRemoteUrl(name: string, value: string | undefined): string {
         `Заполните её в apps/host-shell/.env.development или .env.production.`,
     );
   }
+  // Origin-относительные пути (GH Pages) валидны — new URL их не парсит.
+  if (value.startsWith('/')) {
+    return value;
+  }
   try {
     return new URL(value).toString();
   } catch {
