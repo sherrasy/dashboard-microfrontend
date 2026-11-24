@@ -35,7 +35,9 @@ React 18, TypeScript strict, SCSS Modules, Zustand (только локальн�
 
 - Установка: `npm install`
 - Dev host: `npm run dev:host`
-- Dev remote-catalog: `npm run dev:catalog`
+- Dev remote-catalog (standalone, без хоста): `npm run dev:catalog`
+- Dev remote-cart (standalone): `npm run dev:cart`
+- Интеграция host + remotes: `npm run serve:catalog`, `npm run serve:cart`, затем `npm run dev:host` (remoteEntry.js существует только после сборки — см. README «Запуск в dev-режиме»)
 - Сборка: `npm run build`
 - Тесты: `npm run test`
 

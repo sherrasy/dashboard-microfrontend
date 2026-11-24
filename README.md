@@ -39,4 +39,34 @@
 
 ```bash
 npm install
+npm run build -w @marketplace/shared   # shared подключается к ремоутам из dist
+```
+
+### Запуск в dev-режиме
+
+`@originjs/vite-plugin-federation` генерирует `remoteEntry.js` **только при сборке**:
+в dev-режиме (`vite dev`) ремоут его не отдаёт (vite отвечает HTML-фолбэком), поэтому
+хост не может подгрузить такой ремоут. Рабочий вариант локальной разработки:
+
+```bash
+# Терминал 1 — ремоуты: сборка + preview (пересобирать после изменений)
+npm run serve:catalog
+npm run serve:cart
+
+# Терминал 2 — хост в dev-режиме (с HMR)
+npm run dev:host
+```
+
+Открыть `http://localhost:3000`.
+
+Если ремоут менялся — перезапустить его `serve:*` (скрипт пересобирает перед preview).
+Для разработки только UI каталога/корзины без хоста можно использовать `npm run dev:catalog` /
+`npm run dev:cart`, но цветовые токены объявляет только хост — standalone-страницы
+ремоутов будут без палитры (это осознанное ограничение, см. AGENTS.md).
+
+### Сборка и тесты
+
+```bash
+npm run build
+npm run test
 ```

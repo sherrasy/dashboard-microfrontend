@@ -10,6 +10,8 @@
     "dev:host": "npm run dev --workspace @marketplace/host-shell",
     "dev:catalog": "npm run dev --workspace @marketplace/remote-catalog",
     "dev:cart": "npm run dev --workspace @marketplace/remote-cart",
+    "serve:catalog": "npm run build --workspace @marketplace/remote-catalog && npm run preview --workspace @marketplace/remote-catalog",
+    "serve:cart": "npm run build --workspace @marketplace/remote-cart && npm run preview --workspace @marketplace/remote-cart",
     "build": "npm run build --workspace @marketplace/shared && npm run build --workspace @marketplace/host-shell && npm run build --workspace @marketplace/remote-catalog && npm run build --workspace @marketplace/remote-cart",
     "test": "npm run test --workspaces --if-present"
   }
