@@ -2,5 +2,85 @@
 // Remote-приложения не объявляют :root с общими именами переменных.
 @use '@marketplace/shared/styles/tokens';
 
-// Глобальные стили host-shell — только с префиксом .host-shell-
-// (см. AGENTS.md). Пока пусто: каркас.
+// Глобальные стили host-shell — только с префиксом .host-
+// (см. AGENTS.md: префикс приложения).
+
+.host-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--surface-page);
+}
+
+.host-header {
+  padding: 16px 24px;
+  background: var(--surface-card);
+  border-bottom: 1px solid var(--surface-sunken);
+}
+
+.host-header__title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 20px;
+}
+
+.host-layout {
+  display: flex;
+  gap: 24px;
+  flex: 1;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.host-column-catalog {
+  flex: 0 0 70%;
+  min-width: 0;
+}
+
+.host-column-cart {
+  flex: 0 0 30%;
+  min-width: 0;
+}
+
+.host-remote-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: var(--surface-card);
+  border: 1px solid var(--surface-sunken);
+  border-radius: 8px;
+}
+
+.host-remote-fallback__message {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.host-remote-fallback__retry {
+  padding: 8px 16px;
+  border: 1px solid var(--surface-sunken);
+  border-radius: 6px;
+  background: var(--surface-page);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.host-remote-fallback__retry:hover {
+  background: var(--surface-sunken);
+}
+
+@media (max-width: 768px) {
+  .host-layout {
+    flex-direction: column;
+  }
+
+  .host-column-catalog,
+  .host-column-cart {
+    flex: 1 1 auto;
+  }
+}
