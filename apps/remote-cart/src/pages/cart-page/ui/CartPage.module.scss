@@ -1,0 +1,14 @@
+.cart-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background: var(--surface-sunken);
+  border-radius: 12px;
+}
+
+.cart-page__title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 18px;
+}

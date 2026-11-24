@@ -1,0 +1,33 @@
+.cart-checkout {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cart-checkout__button {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 10px;
+  background: var(--color-espresso);
+  color: var(--text-inverse);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: var(--action-hover);
+  }
+
+  &:disabled {
+    background: var(--action-disabled);
+    cursor: not-allowed;
+  }
+}
+
+.cart-checkout__total {
+  margin: 0;
+  text-align: right;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
