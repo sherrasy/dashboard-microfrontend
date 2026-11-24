@@ -7,7 +7,7 @@ import type { CartAddItemEvent, CartUpdatedEvent } from './events';
 
 const cartAddEvent: CartAddItemEvent = {
   type: 'CART_ADD_ITEM',
-  payload: { productId: 'product-1', quantity: 2 },
+  payload: { productId: 'product-1', title: 'Кофе', price: 100, quantity: 2 },
   source: 'remote-catalog',
 };
 

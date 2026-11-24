@@ -4,7 +4,7 @@ import type { CartAddItemEvent, CartUpdatedEvent } from './events';
 
 const cartAddEvent: CartAddItemEvent = {
   type: 'CART_ADD_ITEM',
-  payload: { productId: 'product-1', quantity: 2 },
+  payload: { productId: 'product-1', title: 'Кофе', price: 100, quantity: 2 },
   source: 'remote-catalog',
 };
 
@@ -30,7 +30,12 @@ describe('createEventBus', () => {
     const bus = createEventBus();
 
     bus.subscribe('CART_ADD_ITEM', (event) => {
-      expectTypeOf(event.payload).toEqualTypeOf<{ productId: string; quantity: number }>();
+      expectTypeOf(event.payload).toEqualTypeOf<{
+        productId: string;
+        title: string;
+        price: number;
+        quantity: number;
+      }>();
       expectTypeOf(event.source).toEqualTypeOf<'remote-catalog'>();
     });
   });
@@ -82,6 +87,23 @@ describe('createEventBus', () => {
     bus.publish(cartAddEvent);
 
     expect(handler).not.toHaveBeenCalled();
+  });
+
+  it('publish не рассылает событие с невалидным payload', () => {
+    const bus = createEventBus();
+    const handler = vi.fn();
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    bus.subscribe('CART_ADD_ITEM', handler);
+    bus.publish({
+      type: 'CART_ADD_ITEM',
+      payload: { productId: 42 },
+      source: 'remote-catalog',
+    } as unknown as CartAddItemEvent);
+
+    expect(handler).not.toHaveBeenCalled();
+    expect(errorSpy).toHaveBeenCalledTimes(1);
+    errorSpy.mockRestore();
   });
 
   it('clear() удаляет всех подписчиков', () => {

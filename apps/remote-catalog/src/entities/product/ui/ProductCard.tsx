@@ -1,12 +1,22 @@
 import type { Product } from '@marketplace/shared';
+import { useEventPublisher } from '@marketplace/shared';
 import styles from './ProductCard.module.scss';
 
 interface ProductCardProps {
   product: Product;
 }
 
-// Кнопка «В корзину» пока только логирует: реальный eventBus — шаг 6.
 export function ProductCard({ product }: ProductCardProps) {
+  const publish = useEventPublisher();
+
+  const handleAddToCart = () => {
+    publish({
+      type: 'CART_ADD_ITEM',
+      payload: { productId: product.id, title: product.title, price: product.price, quantity: 1 },
+      source: 'remote-catalog',
+    });
+  };
+
   return (
     <article className={styles['catalog-card']}>
       <div className={styles['catalog-card__image']}>
@@ -20,7 +30,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <button
             type="button"
             className={styles['catalog-card__button']}
-            onClick={() => console.log('Добавить в корзину', product.id)}
+            onClick={handleAddToCart}
           >
             В корзину
           </button>

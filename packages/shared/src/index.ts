@@ -12,6 +12,11 @@ export type { EventBus } from "./events/eventBus";
 export { createEventBus } from "./events/eventBus";
 export { eventBus } from "./events/eventBusInstance";
 export { useEventBus, useEventPublisher } from "./events/useEventBus";
+export {
+  isAppEvent,
+  isCartAddItemEvent,
+  isCartUpdatedEvent,
+} from "./events/eventGuards";
 
 // Мок-API каталога и корзины (состояние корзины — общее через singleton shared).
 export type {

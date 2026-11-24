@@ -4,11 +4,11 @@ import federation from '@originjs/vite-plugin-federation';
 
 // Module Federation: remote-catalog exposes ./App.
 const shared = {
-  react: { singleton: true, requiredVersion: '18.3.1' },
-  'react-dom': { singleton: true, requiredVersion: '18.3.1' },
+  react: { singleton: true, requiredVersion: '^18.3.1' },
+  'react-dom': { singleton: true, requiredVersion: '^18.3.1' },
   // `version` у react/jsx-runtime задан явно: иначе плагин пытается
   // зарезолвить несуществующий "react/jsx-runtime/package.json".
-  'react/jsx-runtime': { singleton: true, requiredVersion: '18.3.1', version: '18.3.1' },
+  'react/jsx-runtime': { singleton: true, requiredVersion: '^18.3.1', version: '18.3.1' },
   '@marketplace/shared': { singleton: true, requiredVersion: '0.0.0' },
 };
 

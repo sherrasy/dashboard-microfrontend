@@ -9,7 +9,9 @@ export interface AppEventBase {
 
 export interface CartAddItemEvent extends AppEventBase {
   type: 'CART_ADD_ITEM';
-  payload: { productId: string; quantity: number };
+  // title/price нужны remote-cart для оптимистичного отображения позиции
+  // до ответа mockApi (см. шаг 8: optimistic update + rollback).
+  payload: { productId: string; title: string; price: number; quantity: number };
   source: 'remote-catalog';
 }
 

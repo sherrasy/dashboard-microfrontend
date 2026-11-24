@@ -325,8 +325,8 @@ export class MockApi {
     );
   }
 
-  getProductById(id: string): Promise<Product> {
-    return this.execute("getProductById", undefined, () => {
+  getProductById(id: string, signal?: AbortSignal): Promise<Product> {
+    return this.execute("getProductById", signal, () => {
       const product = PRODUCTS.find((item) => item.id === id);
       if (!product) {
         throw new Error(`Product not found: ${id}`);
@@ -335,8 +335,12 @@ export class MockApi {
     });
   }
 
-  addToCart(productId: string, quantity: number): Promise<CartItem> {
-    return this.execute("addToCart", undefined, () => {
+  addToCart(
+    productId: string,
+    quantity: number,
+    signal?: AbortSignal,
+  ): Promise<CartItem> {
+    return this.execute("addToCart", signal, () => {
       const product = this.requireProduct(productId);
       const existing = this.cart.get(productId);
       const item: CartItem = existing
@@ -347,8 +351,12 @@ export class MockApi {
     });
   }
 
-  updateCartQuantity(productId: string, quantity: number): Promise<CartItem> {
-    return this.execute("updateCartQuantity", undefined, () => {
+  updateCartQuantity(
+    productId: string,
+    quantity: number,
+    signal?: AbortSignal,
+  ): Promise<CartItem> {
+    return this.execute("updateCartQuantity", signal, () => {
       const existing = this.cart.get(productId);
       const item: CartItem = existing
         ? { ...existing, quantity }
@@ -366,8 +374,8 @@ export class MockApi {
     });
   }
 
-  checkout(): Promise<{ orderId: string }> {
-    return this.execute("checkout", undefined, () => {
+  checkout(signal?: AbortSignal): Promise<{ orderId: string }> {
+    return this.execute("checkout", signal, () => {
       this.orderCounter += 1;
       const orderId = `order-${this.orderCounter}`;
       this.cart.clear();
